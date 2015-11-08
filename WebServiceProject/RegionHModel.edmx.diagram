@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c0f0075f5c1c43398b6e3defd632f778" Name="Diagram1">
+        <EntityTypeShape EntityType="RegionHModel.Bridge_EventSet" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RegionHModel.Bridge_UnitSet" Width="1.5" PointX="6" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RegionHModel.Dim_EventSet" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="RegionHModel.Dim_LocationSet" Width="1.5" PointX="3.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RegionHModel.Dim_Unit_TypeSet" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="RegionHModel.Dim_UnitSet" Width="1.5" PointX="3.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RegionHModel.Fact_Unit_DataSet" Width="1.5" PointX="8.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="RegionHModel.Fact_Unit_LogSet" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="RegionHModel.FK_Bridge_EventFact_Unit_Log" ManuallyRouted="false" />
+        <AssociationConnector Association="RegionHModel.FK_Dim_EventBridge_Event" ManuallyRouted="false" />
+        <AssociationConnector Association="RegionHModel.FK_Dim_Unit_TypeBridge_Event" ManuallyRouted="false" />
+        <AssociationConnector Association="RegionHModel.FK_Bridge_UnitFact_Unit_Data" ManuallyRouted="false" />
+        <AssociationConnector Association="RegionHModel.FK_Bridge_UnitFact_Unit_Log" ManuallyRouted="false" />
+        <AssociationConnector Association="RegionHModel.FK_Dim_LocationBridge_Unit" ManuallyRouted="false" />
+        <AssociationConnector Association="RegionHModel.FK_Dim_Unit_TypeBridge_Unit" ManuallyRouted="false" />
+        <AssociationConnector Association="RegionHModel.FK_Dim_UnitBridge_Unit" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,253 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{64580A58-82FC-4D08-BFDF-779238B43966}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GenerateDatabaseInfo</RootNamespace>
+    <AssemblyName>GenerateDatabaseInfo</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Bridge_Event.cs">
+      <DependentUpon>UnitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Bridge_Event_L.cs">
+      <DependentUpon>LundbeckModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Bridge_Unit.cs">
+      <DependentUpon>UnitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Bridge_Unit_L.cs">
+      <DependentUpon>LundbeckModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Dim_Event.cs">
+      <DependentUpon>UnitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Dim_Event_L.cs">
+      <DependentUpon>LundbeckModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Dim_Location.cs">
+      <DependentUpon>UnitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Dim_Location_L.cs">
+      <DependentUpon>LundbeckModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Dim_Unit.cs">
+      <DependentUpon>UnitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Dim_Unit_L.cs">
+      <DependentUpon>LundbeckModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Dim_Unit_Type.cs">
+      <DependentUpon>UnitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Dim_Unit_Type_L.cs">
+      <DependentUpon>LundbeckModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Fact_Unit_Data.cs">
+      <DependentUpon>UnitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Fact_Unit_Data_L.cs">
+      <DependentUpon>LundbeckModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Fact_Unit_Log.cs">
+      <DependentUpon>UnitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Fact_Unit_Log_L.cs">
+      <DependentUpon>LundbeckModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Generator.cs" />
+    <Compile Include="LundbeckModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LundbeckModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LundbeckModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LundbeckModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LundbeckModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LundbeckModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="MainModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="MainModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Main_Bridge_Customer_Unit.cs">
+      <DependentUpon>MainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Main_Dim_Customer.cs">
+      <DependentUpon>MainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Main_Dim_Unit.cs">
+      <DependentUpon>MainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Main_Fact_Logs.cs">
+      <DependentUpon>MainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Main_Users.cs">
+      <DependentUpon>MainModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="UnitModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UnitModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UnitModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UnitModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UnitModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UnitModel.edmx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="LundbeckModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>LundbeckModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="LundbeckModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>LundbeckModel.Context.cs</LastGenOutput>
+      <DependentUpon>LundbeckModel.edmx</DependentUpon>
+    </None>
+    <None Include="LundbeckModel.edmx.diagram">
+      <DependentUpon>LundbeckModel.edmx</DependentUpon>
+    </None>
+    <None Include="LundbeckModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>LundbeckModel.cs</LastGenOutput>
+      <DependentUpon>LundbeckModel.edmx</DependentUpon>
+    </None>
+    <EntityDeploy Include="MainModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>MainModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="MainModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MainModel.Context.cs</LastGenOutput>
+      <DependentUpon>MainModel.edmx</DependentUpon>
+    </None>
+    <None Include="MainModel.edmx.diagram">
+      <DependentUpon>MainModel.edmx</DependentUpon>
+    </None>
+    <None Include="MainModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>MainModel.cs</LastGenOutput>
+      <DependentUpon>MainModel.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <EntityDeploy Include="UnitModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>UnitModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="UnitModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>UnitModel.Context.cs</LastGenOutput>
+      <DependentUpon>UnitModel.edmx</DependentUpon>
+    </None>
+    <None Include="UnitModel.edmx.diagram">
+      <DependentUpon>UnitModel.edmx</DependentUpon>
+    </None>
+    <None Include="UnitModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>UnitModel.cs</LastGenOutput>
+      <DependentUpon>UnitModel.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LundbeckModel.edmx.sql" />
+    <Content Include="MainModel.edmx.sql" />
+    <Content Include="UnitModel.edmx.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

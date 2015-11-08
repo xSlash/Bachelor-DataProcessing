@@ -1,0 +1,540 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RegionHModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bridge_EventSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Dim_Unit_TypeId" Type="int" Nullable="false" />
+          <Property Name="Dim_EventId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bridge_UnitSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Dim_UnitId" Type="int" Nullable="false" />
+          <Property Name="Dim_Unit_TypeId" Type="int" Nullable="false" />
+          <Property Name="Dim_LocationId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dim_EventSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Event" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="EventDescription" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dim_LocationSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Room" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dim_Unit_TypeSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dim_UnitSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Unitname" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Fact_Unit_DataSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Bridge_UnitId" Type="int" Nullable="false" />
+          <Property Name="SoapLevel" Type="int" Nullable="false" />
+          <Property Name="Awake" Type="int" Nullable="false" />
+          <Property Name="Flush" Type="int" Nullable="false" />
+          <Property Name="Soap" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Fact_Unit_LogSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Bridge_UnitId" Type="int" Nullable="false" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+          <Property Name="Bridge_EventId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Bridge_EventFact_Unit_Log">
+          <End Role="Bridge_EventSet" Type="Self.Bridge_EventSet" Multiplicity="1" />
+          <End Role="Fact_Unit_LogSet" Type="Self.Fact_Unit_LogSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bridge_EventSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Fact_Unit_LogSet">
+              <PropertyRef Name="Bridge_EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bridge_UnitFact_Unit_Data">
+          <End Role="Bridge_UnitSet" Type="Self.Bridge_UnitSet" Multiplicity="1" />
+          <End Role="Fact_Unit_DataSet" Type="Self.Fact_Unit_DataSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bridge_UnitSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Fact_Unit_DataSet">
+              <PropertyRef Name="Bridge_UnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bridge_UnitFact_Unit_Log">
+          <End Role="Bridge_UnitSet" Type="Self.Bridge_UnitSet" Multiplicity="1" />
+          <End Role="Fact_Unit_LogSet" Type="Self.Fact_Unit_LogSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bridge_UnitSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Fact_Unit_LogSet">
+              <PropertyRef Name="Bridge_UnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dim_EventBridge_Event">
+          <End Role="Dim_EventSet" Type="Self.Dim_EventSet" Multiplicity="1" />
+          <End Role="Bridge_EventSet" Type="Self.Bridge_EventSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dim_EventSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bridge_EventSet">
+              <PropertyRef Name="Dim_EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dim_LocationBridge_Unit">
+          <End Role="Dim_LocationSet" Type="Self.Dim_LocationSet" Multiplicity="1" />
+          <End Role="Bridge_UnitSet" Type="Self.Bridge_UnitSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dim_LocationSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bridge_UnitSet">
+              <PropertyRef Name="Dim_LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dim_Unit_TypeBridge_Event">
+          <End Role="Dim_Unit_TypeSet" Type="Self.Dim_Unit_TypeSet" Multiplicity="1" />
+          <End Role="Bridge_EventSet" Type="Self.Bridge_EventSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dim_Unit_TypeSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bridge_EventSet">
+              <PropertyRef Name="Dim_Unit_TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dim_Unit_TypeBridge_Unit">
+          <End Role="Dim_Unit_TypeSet" Type="Self.Dim_Unit_TypeSet" Multiplicity="1" />
+          <End Role="Bridge_UnitSet" Type="Self.Bridge_UnitSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dim_Unit_TypeSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bridge_UnitSet">
+              <PropertyRef Name="Dim_Unit_TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dim_UnitBridge_Unit">
+          <End Role="Dim_UnitSet" Type="Self.Dim_UnitSet" Multiplicity="1" />
+          <End Role="Bridge_UnitSet" Type="Self.Bridge_UnitSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dim_UnitSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bridge_UnitSet">
+              <PropertyRef Name="Dim_UnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RegionHModelStoreContainer">
+          <EntitySet Name="Bridge_EventSet" EntityType="Self.Bridge_EventSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bridge_UnitSet" EntityType="Self.Bridge_UnitSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dim_EventSet" EntityType="Self.Dim_EventSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dim_LocationSet" EntityType="Self.Dim_LocationSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dim_Unit_TypeSet" EntityType="Self.Dim_Unit_TypeSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dim_UnitSet" EntityType="Self.Dim_UnitSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fact_Unit_DataSet" EntityType="Self.Fact_Unit_DataSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Fact_Unit_LogSet" EntityType="Self.Fact_Unit_LogSet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Bridge_EventFact_Unit_Log" Association="Self.FK_Bridge_EventFact_Unit_Log">
+            <End Role="Bridge_EventSet" EntitySet="Bridge_EventSet" />
+            <End Role="Fact_Unit_LogSet" EntitySet="Fact_Unit_LogSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bridge_UnitFact_Unit_Data" Association="Self.FK_Bridge_UnitFact_Unit_Data">
+            <End Role="Bridge_UnitSet" EntitySet="Bridge_UnitSet" />
+            <End Role="Fact_Unit_DataSet" EntitySet="Fact_Unit_DataSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bridge_UnitFact_Unit_Log" Association="Self.FK_Bridge_UnitFact_Unit_Log">
+            <End Role="Bridge_UnitSet" EntitySet="Bridge_UnitSet" />
+            <End Role="Fact_Unit_LogSet" EntitySet="Fact_Unit_LogSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dim_EventBridge_Event" Association="Self.FK_Dim_EventBridge_Event">
+            <End Role="Dim_EventSet" EntitySet="Dim_EventSet" />
+            <End Role="Bridge_EventSet" EntitySet="Bridge_EventSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dim_LocationBridge_Unit" Association="Self.FK_Dim_LocationBridge_Unit">
+            <End Role="Dim_LocationSet" EntitySet="Dim_LocationSet" />
+            <End Role="Bridge_UnitSet" EntitySet="Bridge_UnitSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dim_Unit_TypeBridge_Event" Association="Self.FK_Dim_Unit_TypeBridge_Event">
+            <End Role="Dim_Unit_TypeSet" EntitySet="Dim_Unit_TypeSet" />
+            <End Role="Bridge_EventSet" EntitySet="Bridge_EventSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dim_Unit_TypeBridge_Unit" Association="Self.FK_Dim_Unit_TypeBridge_Unit">
+            <End Role="Dim_Unit_TypeSet" EntitySet="Dim_Unit_TypeSet" />
+            <End Role="Bridge_UnitSet" EntitySet="Bridge_UnitSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dim_UnitBridge_Unit" Association="Self.FK_Dim_UnitBridge_Unit">
+            <End Role="Dim_UnitSet" EntitySet="Dim_UnitSet" />
+            <End Role="Bridge_UnitSet" EntitySet="Bridge_UnitSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RegionHModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bridge_EventSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Dim_Unit_TypeId" Type="Int32" Nullable="false" />
+          <Property Name="Dim_EventId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Fact_Unit_LogSet" Relationship="Self.FK_Bridge_EventFact_Unit_Log" FromRole="Bridge_EventSet" ToRole="Fact_Unit_LogSet" />
+          <NavigationProperty Name="Dim_EventSet" Relationship="Self.FK_Dim_EventBridge_Event" FromRole="Bridge_EventSet" ToRole="Dim_EventSet" />
+          <NavigationProperty Name="Dim_Unit_TypeSet" Relationship="Self.FK_Dim_Unit_TypeBridge_Event" FromRole="Bridge_EventSet" ToRole="Dim_Unit_TypeSet" />
+        </EntityType>
+        <EntityType Name="Bridge_UnitSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Dim_UnitId" Type="Int32" Nullable="false" />
+          <Property Name="Dim_Unit_TypeId" Type="Int32" Nullable="false" />
+          <Property Name="Dim_LocationId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Fact_Unit_DataSet" Relationship="Self.FK_Bridge_UnitFact_Unit_Data" FromRole="Bridge_UnitSet" ToRole="Fact_Unit_DataSet" />
+          <NavigationProperty Name="Fact_Unit_LogSet" Relationship="Self.FK_Bridge_UnitFact_Unit_Log" FromRole="Bridge_UnitSet" ToRole="Fact_Unit_LogSet" />
+          <NavigationProperty Name="Dim_LocationSet" Relationship="Self.FK_Dim_LocationBridge_Unit" FromRole="Bridge_UnitSet" ToRole="Dim_LocationSet" />
+          <NavigationProperty Name="Dim_Unit_TypeSet" Relationship="Self.FK_Dim_Unit_TypeBridge_Unit" FromRole="Bridge_UnitSet" ToRole="Dim_Unit_TypeSet" />
+          <NavigationProperty Name="Dim_UnitSet" Relationship="Self.FK_Dim_UnitBridge_Unit" FromRole="Bridge_UnitSet" ToRole="Dim_UnitSet" />
+        </EntityType>
+        <EntityType Name="Dim_EventSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Event" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EventDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Bridge_EventSet" Relationship="Self.FK_Dim_EventBridge_Event" FromRole="Dim_EventSet" ToRole="Bridge_EventSet" />
+        </EntityType>
+        <EntityType Name="Dim_LocationSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Room" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Bridge_UnitSet" Relationship="Self.FK_Dim_LocationBridge_Unit" FromRole="Dim_LocationSet" ToRole="Bridge_UnitSet" />
+        </EntityType>
+        <EntityType Name="Dim_Unit_TypeSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Bridge_EventSet" Relationship="Self.FK_Dim_Unit_TypeBridge_Event" FromRole="Dim_Unit_TypeSet" ToRole="Bridge_EventSet" />
+          <NavigationProperty Name="Bridge_UnitSet" Relationship="Self.FK_Dim_Unit_TypeBridge_Unit" FromRole="Dim_Unit_TypeSet" ToRole="Bridge_UnitSet" />
+        </EntityType>
+        <EntityType Name="Dim_UnitSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Unitname" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Bridge_UnitSet" Relationship="Self.FK_Dim_UnitBridge_Unit" FromRole="Dim_UnitSet" ToRole="Bridge_UnitSet" />
+        </EntityType>
+        <EntityType Name="Fact_Unit_DataSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bridge_UnitId" Type="Int32" Nullable="false" />
+          <Property Name="SoapLevel" Type="Int32" Nullable="false" />
+          <Property Name="Awake" Type="Int32" Nullable="false" />
+          <Property Name="Flush" Type="Int32" Nullable="false" />
+          <Property Name="Soap" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bridge_UnitSet" Relationship="Self.FK_Bridge_UnitFact_Unit_Data" FromRole="Fact_Unit_DataSet" ToRole="Bridge_UnitSet" />
+        </EntityType>
+        <EntityType Name="Fact_Unit_LogSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bridge_UnitId" Type="Int32" Nullable="false" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Bridge_EventId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bridge_EventSet" Relationship="Self.FK_Bridge_EventFact_Unit_Log" FromRole="Fact_Unit_LogSet" ToRole="Bridge_EventSet" />
+          <NavigationProperty Name="Bridge_UnitSet" Relationship="Self.FK_Bridge_UnitFact_Unit_Log" FromRole="Fact_Unit_LogSet" ToRole="Bridge_UnitSet" />
+        </EntityType>
+        <Association Name="FK_Bridge_EventFact_Unit_Log">
+          <End Role="Bridge_EventSet" Type="Self.Bridge_EventSet" Multiplicity="1" />
+          <End Role="Fact_Unit_LogSet" Type="Self.Fact_Unit_LogSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bridge_EventSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Fact_Unit_LogSet">
+              <PropertyRef Name="Bridge_EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dim_EventBridge_Event">
+          <End Role="Dim_EventSet" Type="Self.Dim_EventSet" Multiplicity="1" />
+          <End Role="Bridge_EventSet" Type="Self.Bridge_EventSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dim_EventSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bridge_EventSet">
+              <PropertyRef Name="Dim_EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dim_Unit_TypeBridge_Event">
+          <End Role="Dim_Unit_TypeSet" Type="Self.Dim_Unit_TypeSet" Multiplicity="1" />
+          <End Role="Bridge_EventSet" Type="Self.Bridge_EventSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dim_Unit_TypeSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bridge_EventSet">
+              <PropertyRef Name="Dim_Unit_TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bridge_UnitFact_Unit_Data">
+          <End Role="Bridge_UnitSet" Type="Self.Bridge_UnitSet" Multiplicity="1" />
+          <End Role="Fact_Unit_DataSet" Type="Self.Fact_Unit_DataSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bridge_UnitSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Fact_Unit_DataSet">
+              <PropertyRef Name="Bridge_UnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bridge_UnitFact_Unit_Log">
+          <End Role="Bridge_UnitSet" Type="Self.Bridge_UnitSet" Multiplicity="1" />
+          <End Role="Fact_Unit_LogSet" Type="Self.Fact_Unit_LogSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bridge_UnitSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Fact_Unit_LogSet">
+              <PropertyRef Name="Bridge_UnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dim_LocationBridge_Unit">
+          <End Role="Dim_LocationSet" Type="Self.Dim_LocationSet" Multiplicity="1" />
+          <End Role="Bridge_UnitSet" Type="Self.Bridge_UnitSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dim_LocationSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bridge_UnitSet">
+              <PropertyRef Name="Dim_LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dim_Unit_TypeBridge_Unit">
+          <End Role="Dim_Unit_TypeSet" Type="Self.Dim_Unit_TypeSet" Multiplicity="1" />
+          <End Role="Bridge_UnitSet" Type="Self.Bridge_UnitSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dim_Unit_TypeSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bridge_UnitSet">
+              <PropertyRef Name="Dim_Unit_TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dim_UnitBridge_Unit">
+          <End Role="Dim_UnitSet" Type="Self.Dim_UnitSet" Multiplicity="1" />
+          <End Role="Bridge_UnitSet" Type="Self.Bridge_UnitSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dim_UnitSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bridge_UnitSet">
+              <PropertyRef Name="Dim_UnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RegionHEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bridge_EventSet" EntityType="Self.Bridge_EventSet" />
+          <EntitySet Name="Bridge_UnitSet" EntityType="Self.Bridge_UnitSet" />
+          <EntitySet Name="Dim_EventSet" EntityType="Self.Dim_EventSet" />
+          <EntitySet Name="Dim_LocationSet" EntityType="Self.Dim_LocationSet" />
+          <EntitySet Name="Dim_Unit_TypeSet" EntityType="Self.Dim_Unit_TypeSet" />
+          <EntitySet Name="Dim_UnitSet" EntityType="Self.Dim_UnitSet" />
+          <EntitySet Name="Fact_Unit_DataSet" EntityType="Self.Fact_Unit_DataSet" />
+          <EntitySet Name="Fact_Unit_LogSet" EntityType="Self.Fact_Unit_LogSet" />
+          <AssociationSet Name="FK_Bridge_EventFact_Unit_Log" Association="Self.FK_Bridge_EventFact_Unit_Log">
+            <End Role="Bridge_EventSet" EntitySet="Bridge_EventSet" />
+            <End Role="Fact_Unit_LogSet" EntitySet="Fact_Unit_LogSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dim_EventBridge_Event" Association="Self.FK_Dim_EventBridge_Event">
+            <End Role="Dim_EventSet" EntitySet="Dim_EventSet" />
+            <End Role="Bridge_EventSet" EntitySet="Bridge_EventSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dim_Unit_TypeBridge_Event" Association="Self.FK_Dim_Unit_TypeBridge_Event">
+            <End Role="Dim_Unit_TypeSet" EntitySet="Dim_Unit_TypeSet" />
+            <End Role="Bridge_EventSet" EntitySet="Bridge_EventSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bridge_UnitFact_Unit_Data" Association="Self.FK_Bridge_UnitFact_Unit_Data">
+            <End Role="Bridge_UnitSet" EntitySet="Bridge_UnitSet" />
+            <End Role="Fact_Unit_DataSet" EntitySet="Fact_Unit_DataSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bridge_UnitFact_Unit_Log" Association="Self.FK_Bridge_UnitFact_Unit_Log">
+            <End Role="Bridge_UnitSet" EntitySet="Bridge_UnitSet" />
+            <End Role="Fact_Unit_LogSet" EntitySet="Fact_Unit_LogSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dim_LocationBridge_Unit" Association="Self.FK_Dim_LocationBridge_Unit">
+            <End Role="Dim_LocationSet" EntitySet="Dim_LocationSet" />
+            <End Role="Bridge_UnitSet" EntitySet="Bridge_UnitSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dim_Unit_TypeBridge_Unit" Association="Self.FK_Dim_Unit_TypeBridge_Unit">
+            <End Role="Dim_Unit_TypeSet" EntitySet="Dim_Unit_TypeSet" />
+            <End Role="Bridge_UnitSet" EntitySet="Bridge_UnitSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dim_UnitBridge_Unit" Association="Self.FK_Dim_UnitBridge_Unit">
+            <End Role="Dim_UnitSet" EntitySet="Dim_UnitSet" />
+            <End Role="Bridge_UnitSet" EntitySet="Bridge_UnitSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RegionHModelStoreContainer" CdmEntityContainer="RegionHEntities">
+          <EntitySetMapping Name="Bridge_EventSet">
+            <EntityTypeMapping TypeName="RegionHModel.Bridge_EventSet">
+              <MappingFragment StoreEntitySet="Bridge_EventSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Dim_Unit_TypeId" ColumnName="Dim_Unit_TypeId" />
+                <ScalarProperty Name="Dim_EventId" ColumnName="Dim_EventId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bridge_UnitSet">
+            <EntityTypeMapping TypeName="RegionHModel.Bridge_UnitSet">
+              <MappingFragment StoreEntitySet="Bridge_UnitSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Dim_UnitId" ColumnName="Dim_UnitId" />
+                <ScalarProperty Name="Dim_Unit_TypeId" ColumnName="Dim_Unit_TypeId" />
+                <ScalarProperty Name="Dim_LocationId" ColumnName="Dim_LocationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dim_EventSet">
+            <EntityTypeMapping TypeName="RegionHModel.Dim_EventSet">
+              <MappingFragment StoreEntitySet="Dim_EventSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Event" ColumnName="Event" />
+                <ScalarProperty Name="EventDescription" ColumnName="EventDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dim_LocationSet">
+            <EntityTypeMapping TypeName="RegionHModel.Dim_LocationSet">
+              <MappingFragment StoreEntitySet="Dim_LocationSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Room" ColumnName="Room" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dim_Unit_TypeSet">
+            <EntityTypeMapping TypeName="RegionHModel.Dim_Unit_TypeSet">
+              <MappingFragment StoreEntitySet="Dim_Unit_TypeSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dim_UnitSet">
+            <EntityTypeMapping TypeName="RegionHModel.Dim_UnitSet">
+              <MappingFragment StoreEntitySet="Dim_UnitSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Unitname" ColumnName="Unitname" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fact_Unit_DataSet">
+            <EntityTypeMapping TypeName="RegionHModel.Fact_Unit_DataSet">
+              <MappingFragment StoreEntitySet="Fact_Unit_DataSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Bridge_UnitId" ColumnName="Bridge_UnitId" />
+                <ScalarProperty Name="SoapLevel" ColumnName="SoapLevel" />
+                <ScalarProperty Name="Awake" ColumnName="Awake" />
+                <ScalarProperty Name="Flush" ColumnName="Flush" />
+                <ScalarProperty Name="Soap" ColumnName="Soap" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Fact_Unit_LogSet">
+            <EntityTypeMapping TypeName="RegionHModel.Fact_Unit_LogSet">
+              <MappingFragment StoreEntitySet="Fact_Unit_LogSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Bridge_UnitId" ColumnName="Bridge_UnitId" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="Bridge_EventId" ColumnName="Bridge_EventId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

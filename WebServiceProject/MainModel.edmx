@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CustomerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Main_Bridge_Customer_UnitSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Main_Dim_UnitId" Type="int" Nullable="false" />
+          <Property Name="Main_Dim_CustomerId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Main_Dim_CustomerSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Customer_name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Main_Dim_UnitSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UnitID" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Main_Fact_LogsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UnitName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Timestamp" Type="datetime" Nullable="false" />
+          <Property Name="EventName" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Main_UsersSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Customer" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Main_Dim_CustomerMain_Bridge_Customer_Unit">
+          <End Role="Main_Dim_CustomerSet" Type="Self.Main_Dim_CustomerSet" Multiplicity="1" />
+          <End Role="Main_Bridge_Customer_UnitSet" Type="Self.Main_Bridge_Customer_UnitSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Main_Dim_CustomerSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Main_Bridge_Customer_UnitSet">
+              <PropertyRef Name="Main_Dim_CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Main_Dim_UnitMain_Bridge_Customer_Unit">
+          <End Role="Main_Dim_UnitSet" Type="Self.Main_Dim_UnitSet" Multiplicity="1" />
+          <End Role="Main_Bridge_Customer_UnitSet" Type="Self.Main_Bridge_Customer_UnitSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Main_Dim_UnitSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Main_Bridge_Customer_UnitSet">
+              <PropertyRef Name="Main_Dim_UnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CustomerModelStoreContainer">
+          <EntitySet Name="Main_Bridge_Customer_UnitSet" EntityType="Self.Main_Bridge_Customer_UnitSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Main_Dim_CustomerSet" EntityType="Self.Main_Dim_CustomerSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Main_Dim_UnitSet" EntityType="Self.Main_Dim_UnitSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Main_Fact_LogsSet" EntityType="Self.Main_Fact_LogsSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Main_UsersSet" EntityType="Self.Main_UsersSet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Main_Dim_CustomerMain_Bridge_Customer_Unit" Association="Self.FK_Main_Dim_CustomerMain_Bridge_Customer_Unit">
+            <End Role="Main_Dim_CustomerSet" EntitySet="Main_Dim_CustomerSet" />
+            <End Role="Main_Bridge_Customer_UnitSet" EntitySet="Main_Bridge_Customer_UnitSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Main_Dim_UnitMain_Bridge_Customer_Unit" Association="Self.FK_Main_Dim_UnitMain_Bridge_Customer_Unit">
+            <End Role="Main_Dim_UnitSet" EntitySet="Main_Dim_UnitSet" />
+            <End Role="Main_Bridge_Customer_UnitSet" EntitySet="Main_Bridge_Customer_UnitSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CustomerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Main_Bridge_Customer_UnitSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Main_Dim_UnitId" Type="Int32" Nullable="false" />
+          <Property Name="Main_Dim_CustomerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Main_Dim_CustomerSet" Relationship="Self.FK_Main_Dim_CustomerMain_Bridge_Customer_Unit" FromRole="Main_Bridge_Customer_UnitSet" ToRole="Main_Dim_CustomerSet" />
+          <NavigationProperty Name="Main_Dim_UnitSet" Relationship="Self.FK_Main_Dim_UnitMain_Bridge_Customer_Unit" FromRole="Main_Bridge_Customer_UnitSet" ToRole="Main_Dim_UnitSet" />
+        </EntityType>
+        <EntityType Name="Main_Dim_CustomerSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Customer_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Main_Bridge_Customer_UnitSet" Relationship="Self.FK_Main_Dim_CustomerMain_Bridge_Customer_Unit" FromRole="Main_Dim_CustomerSet" ToRole="Main_Bridge_Customer_UnitSet" />
+        </EntityType>
+        <EntityType Name="Main_Dim_UnitSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UnitID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Main_Bridge_Customer_UnitSet" Relationship="Self.FK_Main_Dim_UnitMain_Bridge_Customer_Unit" FromRole="Main_Dim_UnitSet" ToRole="Main_Bridge_Customer_UnitSet" />
+        </EntityType>
+        <Association Name="FK_Main_Dim_CustomerMain_Bridge_Customer_Unit">
+          <End Role="Main_Dim_CustomerSet" Type="Self.Main_Dim_CustomerSet" Multiplicity="1" />
+          <End Role="Main_Bridge_Customer_UnitSet" Type="Self.Main_Bridge_Customer_UnitSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Main_Dim_CustomerSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Main_Bridge_Customer_UnitSet">
+              <PropertyRef Name="Main_Dim_CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Main_Dim_UnitMain_Bridge_Customer_Unit">
+          <End Role="Main_Dim_UnitSet" Type="Self.Main_Dim_UnitSet" Multiplicity="1" />
+          <End Role="Main_Bridge_Customer_UnitSet" Type="Self.Main_Bridge_Customer_UnitSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Main_Dim_UnitSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Main_Bridge_Customer_UnitSet">
+              <PropertyRef Name="Main_Dim_UnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CustomerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Main_Bridge_Customer_UnitSet" EntityType="Self.Main_Bridge_Customer_UnitSet" />
+          <EntitySet Name="Main_Dim_CustomerSet" EntityType="Self.Main_Dim_CustomerSet" />
+          <EntitySet Name="Main_Dim_UnitSet" EntityType="Self.Main_Dim_UnitSet" />
+          <AssociationSet Name="FK_Main_Dim_CustomerMain_Bridge_Customer_Unit" Association="Self.FK_Main_Dim_CustomerMain_Bridge_Customer_Unit">
+            <End Role="Main_Dim_CustomerSet" EntitySet="Main_Dim_CustomerSet" />
+            <End Role="Main_Bridge_Customer_UnitSet" EntitySet="Main_Bridge_Customer_UnitSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Main_Dim_UnitMain_Bridge_Customer_Unit" Association="Self.FK_Main_Dim_UnitMain_Bridge_Customer_Unit">
+            <End Role="Main_Dim_UnitSet" EntitySet="Main_Dim_UnitSet" />
+            <End Role="Main_Bridge_Customer_UnitSet" EntitySet="Main_Bridge_Customer_UnitSet" />
+          </AssociationSet>
+          <EntitySet Name="Main_Fact_LogsSet" EntityType="CustomerModel.Main_Fact_LogsSet" />
+          <EntitySet Name="Main_UsersSet" EntityType="CustomerModel.Main_UsersSet" />
+        </EntityContainer>
+        <EntityType Name="Main_Fact_LogsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UnitName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EventName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Main_UsersSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Customer" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CustomerModelStoreContainer" CdmEntityContainer="CustomerEntities">
+          <EntitySetMapping Name="Main_Bridge_Customer_UnitSet">
+            <EntityTypeMapping TypeName="CustomerModel.Main_Bridge_Customer_UnitSet">
+              <MappingFragment StoreEntitySet="Main_Bridge_Customer_UnitSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Main_Dim_UnitId" ColumnName="Main_Dim_UnitId" />
+                <ScalarProperty Name="Main_Dim_CustomerId" ColumnName="Main_Dim_CustomerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Main_Dim_CustomerSet">
+            <EntityTypeMapping TypeName="CustomerModel.Main_Dim_CustomerSet">
+              <MappingFragment StoreEntitySet="Main_Dim_CustomerSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Customer_name" ColumnName="Customer_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Main_Dim_UnitSet">
+            <EntityTypeMapping TypeName="CustomerModel.Main_Dim_UnitSet">
+              <MappingFragment StoreEntitySet="Main_Dim_UnitSet">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UnitID" ColumnName="UnitID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Main_Fact_LogsSet">
+            <EntityTypeMapping TypeName="CustomerModel.Main_Fact_LogsSet">
+              <MappingFragment StoreEntitySet="Main_Fact_LogsSet">
+                <ScalarProperty Name="EventName" ColumnName="EventName" />
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="UnitName" ColumnName="UnitName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Main_UsersSet">
+            <EntityTypeMapping TypeName="CustomerModel.Main_UsersSet">
+              <MappingFragment StoreEntitySet="Main_UsersSet">
+                <ScalarProperty Name="Customer" ColumnName="Customer" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

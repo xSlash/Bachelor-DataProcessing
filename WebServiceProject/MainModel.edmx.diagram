@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="729d480d8f6b4985adb3ae67a0e4affe" Name="Diagram1">
+        <EntityTypeShape EntityType="CustomerModel.Main_Bridge_Customer_UnitSet" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CustomerModel.Main_Dim_CustomerSet" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CustomerModel.Main_Dim_UnitSet" Width="1.5" PointX="5.75" PointY="1.25" IsExpanded="true" />
+        <AssociationConnector Association="CustomerModel.FK_Main_Dim_CustomerMain_Bridge_Customer_Unit" ManuallyRouted="false" />
+        <AssociationConnector Association="CustomerModel.FK_Main_Dim_UnitMain_Bridge_Customer_Unit" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CustomerModel.Main_Fact_LogsSet" Width="1.5" PointX="2.375" PointY="3.5" />
+        <EntityTypeShape EntityType="CustomerModel.Main_UsersSet" Width="1.5" PointX="6.5" PointY="3.5" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

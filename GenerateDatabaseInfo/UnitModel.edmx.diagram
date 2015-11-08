@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b3a69aaac5e446afb3d37e0b26971193" Name="Diagram1" >
+        <EntityTypeShape EntityType="UnitModel.Dim_Unit" Width="1.5" PointX="1.125" PointY="0.75" />
+        <EntityTypeShape EntityType="UnitModel.Dim_Unit_Type" Width="1.5" PointX="7.25" PointY="1" />
+        <EntityTypeShape EntityType="UnitModel.Dim_Location" Width="1.5" PointX="1.25" PointY="3.625" />
+        <EntityTypeShape EntityType="UnitModel.Bridge_Unit" Width="1.5" PointX="4" PointY="1" />
+        <AssociationConnector Association="UnitModel.Dim_UnitBridge_Unit" />
+        <AssociationConnector Association="UnitModel.Dim_Unit_TypeBridge_Unit" />
+        <AssociationConnector Association="UnitModel.Dim_LocationBridge_Unit" />
+        <EntityTypeShape EntityType="UnitModel.Dim_Event" Width="1.5" PointX="10.375" PointY="1.125" />
+        <EntityTypeShape EntityType="UnitModel.Bridge_Event" Width="1.5" PointX="10.875" PointY="4.125" />
+        <AssociationConnector Association="UnitModel.Dim_Unit_TypeBridge_Event" />
+        <AssociationConnector Association="UnitModel.Dim_EventBridge_Event" />
+        <EntityTypeShape EntityType="UnitModel.Fact_Unit_Log" Width="1.5" PointX="6.125" PointY="4.75" />
+        <AssociationConnector Association="UnitModel.Bridge_UnitFact_Unit_Log" />
+        <AssociationConnector Association="UnitModel.Bridge_EventFact_Unit_Log" />
+        <EntityTypeShape EntityType="UnitModel.Fact_Unit_Data" Width="1.5" PointX="3.625" PointY="4.75" />
+        <AssociationConnector Association="UnitModel.Bridge_UnitFact_Unit_Data" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

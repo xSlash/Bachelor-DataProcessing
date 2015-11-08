@@ -1,0 +1,532 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LundbeckModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="LundbeckModelStoreContainer">
+    <EntitySet Name="Dim_Unit_LSet" EntityType="LundbeckModel.Store.Dim_Unit_LSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Dim_Unit_Type_LSet" EntityType="LundbeckModel.Store.Dim_Unit_Type_LSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Dim_Location_LSet" EntityType="LundbeckModel.Store.Dim_Location_LSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Bridge_Unit_LSet" EntityType="LundbeckModel.Store.Bridge_Unit_LSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Dim_Event_LSet" EntityType="LundbeckModel.Store.Dim_Event_LSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Bridge_Event_LSet" EntityType="LundbeckModel.Store.Bridge_Event_LSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Fact_Unit_Log_LSet" EntityType="LundbeckModel.Store.Fact_Unit_Log_LSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Fact_Unit_Data_LSet" EntityType="LundbeckModel.Store.Fact_Unit_Data_LSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="Dim_UnitBridge_Unit" Association="LundbeckModel.Store.Dim_UnitBridge_Unit">
+      <End Role="Dim_Unit" EntitySet="Dim_Unit_LSet" />
+      <End Role="Bridge_Unit" EntitySet="Bridge_Unit_LSet" />
+    </AssociationSet>
+    <AssociationSet Name="Dim_Unit_TypeBridge_Unit" Association="LundbeckModel.Store.Dim_Unit_TypeBridge_Unit">
+      <End Role="Dim_Unit_Type" EntitySet="Dim_Unit_Type_LSet" />
+      <End Role="Bridge_Unit" EntitySet="Bridge_Unit_LSet" />
+    </AssociationSet>
+    <AssociationSet Name="Dim_Unit_TypeBridge_Event" Association="LundbeckModel.Store.Dim_Unit_TypeBridge_Event">
+      <End Role="Dim_Unit_Type" EntitySet="Dim_Unit_Type_LSet" />
+      <End Role="Bridge_Event" EntitySet="Bridge_Event_LSet" />
+    </AssociationSet>
+    <AssociationSet Name="Dim_LocationBridge_Unit" Association="LundbeckModel.Store.Dim_LocationBridge_Unit">
+      <End Role="Dim_Location" EntitySet="Dim_Location_LSet" />
+      <End Role="Bridge_Unit" EntitySet="Bridge_Unit_LSet" />
+    </AssociationSet>
+    <AssociationSet Name="Dim_EventBridge_Event" Association="LundbeckModel.Store.Dim_EventBridge_Event">
+      <End Role="Dim_Event" EntitySet="Dim_Event_LSet" />
+      <End Role="Bridge_Event" EntitySet="Bridge_Event_LSet" />
+    </AssociationSet>
+    <AssociationSet Name="Bridge_UnitFact_Unit_Log" Association="LundbeckModel.Store.Bridge_UnitFact_Unit_Log">
+      <End Role="Bridge_Unit" EntitySet="Bridge_Unit_LSet" />
+      <End Role="Fact_Unit_Log" EntitySet="Fact_Unit_Log_LSet" />
+    </AssociationSet>
+    <AssociationSet Name="Bridge_EventFact_Unit_Log" Association="LundbeckModel.Store.Bridge_EventFact_Unit_Log">
+      <End Role="Bridge_Event" EntitySet="Bridge_Event_LSet" />
+      <End Role="Fact_Unit_Log" EntitySet="Fact_Unit_Log_LSet" />
+    </AssociationSet>
+    <AssociationSet Name="Bridge_UnitFact_Unit_Data" Association="LundbeckModel.Store.Bridge_UnitFact_Unit_Data">
+      <End Role="Bridge_Unit" EntitySet="Bridge_Unit_LSet" />
+      <End Role="Fact_Unit_Data" EntitySet="Fact_Unit_Data_LSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Dim_Unit_LSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Unitname" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Dim_Unit_Type_LSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Dim_Location_LSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Room" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Bridge_Unit_LSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Dim_UnitId" Type="int" Nullable="false" />
+    <Property Name="Dim_Unit_TypeId" Type="int" Nullable="false" />
+    <Property Name="Dim_LocationId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Dim_Event_LSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Event" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="EventDescription" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Bridge_Event_LSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Dim_Unit_TypeId" Type="int" Nullable="false" />
+    <Property Name="Dim_EventId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Fact_Unit_Log_LSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Bridge_UnitId" Type="int" Nullable="false" />
+    <Property Name="Timestamp" Type="datetime" Nullable="false" />
+    <Property Name="Bridge_EventId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Fact_Unit_Data_LSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Bridge_UnitId" Type="int" Nullable="false" />
+    <Property Name="On" Type="int" Nullable="false" />
+    <Property Name="Off" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="Dim_UnitBridge_Unit">
+    <End Role="Dim_Unit" Type="LundbeckModel.Store.Dim_Unit_LSet" Multiplicity="1" />
+    <End Role="Bridge_Unit" Type="LundbeckModel.Store.Bridge_Unit_LSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dim_Unit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bridge_Unit">
+        <PropertyRef Name="Dim_UnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Dim_Unit_TypeBridge_Unit">
+    <End Role="Dim_Unit_Type" Type="LundbeckModel.Store.Dim_Unit_Type_LSet" Multiplicity="1" />
+    <End Role="Bridge_Unit" Type="LundbeckModel.Store.Bridge_Unit_LSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dim_Unit_Type">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bridge_Unit">
+        <PropertyRef Name="Dim_Unit_TypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Dim_Unit_TypeBridge_Event">
+    <End Role="Dim_Unit_Type" Type="LundbeckModel.Store.Dim_Unit_Type_LSet" Multiplicity="1" />
+    <End Role="Bridge_Event" Type="LundbeckModel.Store.Bridge_Event_LSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dim_Unit_Type">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bridge_Event">
+        <PropertyRef Name="Dim_Unit_TypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Dim_LocationBridge_Unit">
+    <End Role="Dim_Location" Type="LundbeckModel.Store.Dim_Location_LSet" Multiplicity="1" />
+    <End Role="Bridge_Unit" Type="LundbeckModel.Store.Bridge_Unit_LSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dim_Location">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bridge_Unit">
+        <PropertyRef Name="Dim_LocationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Dim_EventBridge_Event">
+    <End Role="Dim_Event" Type="LundbeckModel.Store.Dim_Event_LSet" Multiplicity="1" />
+    <End Role="Bridge_Event" Type="LundbeckModel.Store.Bridge_Event_LSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dim_Event">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Bridge_Event">
+        <PropertyRef Name="Dim_EventId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Bridge_UnitFact_Unit_Log">
+    <End Role="Bridge_Unit" Type="LundbeckModel.Store.Bridge_Unit_LSet" Multiplicity="1" />
+    <End Role="Fact_Unit_Log" Type="LundbeckModel.Store.Fact_Unit_Log_LSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bridge_Unit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Fact_Unit_Log">
+        <PropertyRef Name="Bridge_UnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Bridge_EventFact_Unit_Log">
+    <End Role="Bridge_Event" Type="LundbeckModel.Store.Bridge_Event_LSet" Multiplicity="1" />
+    <End Role="Fact_Unit_Log" Type="LundbeckModel.Store.Fact_Unit_Log_LSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bridge_Event">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Fact_Unit_Log">
+        <PropertyRef Name="Bridge_EventId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Bridge_UnitFact_Unit_Data">
+    <End Role="Bridge_Unit" Type="LundbeckModel.Store.Bridge_Unit_LSet" Multiplicity="1" />
+    <End Role="Fact_Unit_Data" Type="LundbeckModel.Store.Fact_Unit_Data_LSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bridge_Unit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Fact_Unit_Data">
+        <PropertyRef Name="Bridge_UnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="LundbeckModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="LundbeckModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Dim_Unit_LSet" EntityType="LundbeckModel.Dim_Unit_L" />
+          <EntitySet Name="Dim_Unit_Type_LSet" EntityType="LundbeckModel.Dim_Unit_Type_L" />
+          <EntitySet Name="Dim_Location_LSet" EntityType="LundbeckModel.Dim_Location_L" />
+          <EntitySet Name="Bridge_Unit_LSet" EntityType="LundbeckModel.Bridge_Unit_L" />
+          <EntitySet Name="Dim_Event_LSet" EntityType="LundbeckModel.Dim_Event_L" />
+          <EntitySet Name="Bridge_Event_LSet" EntityType="LundbeckModel.Bridge_Event_L" />
+          <EntitySet Name="Fact_Unit_Log_LSet" EntityType="LundbeckModel.Fact_Unit_Log_L" />
+          <EntitySet Name="Fact_Unit_Data_LSet" EntityType="LundbeckModel.Fact_Unit_Data_L" />
+          <AssociationSet Name="Dim_UnitBridge_Unit" Association="LundbeckModel.Dim_UnitBridge_Unit">
+            <End Role="Dim_Unit" EntitySet="Dim_Unit_LSet" />
+            <End Role="Bridge_Unit" EntitySet="Bridge_Unit_LSet" />
+          </AssociationSet>
+          <AssociationSet Name="Dim_Unit_TypeBridge_Unit" Association="LundbeckModel.Dim_Unit_TypeBridge_Unit">
+            <End Role="Dim_Unit_Type" EntitySet="Dim_Unit_Type_LSet" />
+            <End Role="Bridge_Unit" EntitySet="Bridge_Unit_LSet" />
+          </AssociationSet>
+          <AssociationSet Name="Dim_Unit_TypeBridge_Event" Association="LundbeckModel.Dim_Unit_TypeBridge_Event">
+            <End Role="Dim_Unit_Type" EntitySet="Dim_Unit_Type_LSet" />
+            <End Role="Bridge_Event" EntitySet="Bridge_Event_LSet" />
+          </AssociationSet>
+          <AssociationSet Name="Dim_LocationBridge_Unit" Association="LundbeckModel.Dim_LocationBridge_Unit">
+            <End Role="Dim_Location" EntitySet="Dim_Location_LSet" />
+            <End Role="Bridge_Unit" EntitySet="Bridge_Unit_LSet" />
+          </AssociationSet>
+          <AssociationSet Name="Dim_EventBridge_Event" Association="LundbeckModel.Dim_EventBridge_Event">
+            <End Role="Dim_Event" EntitySet="Dim_Event_LSet" />
+            <End Role="Bridge_Event" EntitySet="Bridge_Event_LSet" />
+          </AssociationSet>
+          <AssociationSet Name="Bridge_UnitFact_Unit_Log" Association="LundbeckModel.Bridge_UnitFact_Unit_Log">
+            <End Role="Bridge_Unit" EntitySet="Bridge_Unit_LSet" />
+            <End Role="Fact_Unit_Log" EntitySet="Fact_Unit_Log_LSet" />
+          </AssociationSet>
+          <AssociationSet Name="Bridge_EventFact_Unit_Log" Association="LundbeckModel.Bridge_EventFact_Unit_Log">
+            <End Role="Bridge_Event" EntitySet="Bridge_Event_LSet" />
+            <End Role="Fact_Unit_Log" EntitySet="Fact_Unit_Log_LSet" />
+          </AssociationSet>
+          <AssociationSet Name="Bridge_UnitFact_Unit_Data" Association="LundbeckModel.Bridge_UnitFact_Unit_Data">
+            <End Role="Bridge_Unit" EntitySet="Bridge_Unit_LSet" />
+            <End Role="Fact_Unit_Data" EntitySet="Fact_Unit_Data_LSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Dim_Unit_L">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Unitname" Type="String" Nullable="false" />
+          <NavigationProperty Name="Bridge_Unit" Relationship="LundbeckModel.Dim_UnitBridge_Unit" FromRole="Dim_Unit" ToRole="Bridge_Unit" />
+        </EntityType>
+        <EntityType Name="Dim_Unit_Type_L">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" Nullable="false" />
+          <NavigationProperty Name="Bridge_Unit" Relationship="LundbeckModel.Dim_Unit_TypeBridge_Unit" FromRole="Dim_Unit_Type" ToRole="Bridge_Unit" />
+          <NavigationProperty Name="Bridge_Event" Relationship="LundbeckModel.Dim_Unit_TypeBridge_Event" FromRole="Dim_Unit_Type" ToRole="Bridge_Event" />
+        </EntityType>
+        <EntityType Name="Dim_Location_L">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Room" Type="String" Nullable="false" />
+          <NavigationProperty Name="Bridge_Unit" Relationship="LundbeckModel.Dim_LocationBridge_Unit" FromRole="Dim_Location" ToRole="Bridge_Unit" />
+        </EntityType>
+        <EntityType Name="Bridge_Unit_L">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Dim_UnitId" Type="Int32" Nullable="false" />
+          <Property Name="Dim_Unit_TypeId" Type="Int32" Nullable="false" />
+          <Property Name="Dim_LocationId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Dim_Unit" Relationship="LundbeckModel.Dim_UnitBridge_Unit" FromRole="Bridge_Unit" ToRole="Dim_Unit" />
+          <NavigationProperty Name="Dim_Unit_Type" Relationship="LundbeckModel.Dim_Unit_TypeBridge_Unit" FromRole="Bridge_Unit" ToRole="Dim_Unit_Type" />
+          <NavigationProperty Name="Dim_Location" Relationship="LundbeckModel.Dim_LocationBridge_Unit" FromRole="Bridge_Unit" ToRole="Dim_Location" />
+          <NavigationProperty Name="Fact_Unit_Log" Relationship="LundbeckModel.Bridge_UnitFact_Unit_Log" FromRole="Bridge_Unit" ToRole="Fact_Unit_Log" />
+          <NavigationProperty Name="Fact_Unit_Data" Relationship="LundbeckModel.Bridge_UnitFact_Unit_Data" FromRole="Bridge_Unit" ToRole="Fact_Unit_Data" />
+        </EntityType>
+        <EntityType Name="Dim_Event_L">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Event" Type="String" Nullable="false" />
+          <Property Name="EventDescription" Type="String" Nullable="false" />
+          <NavigationProperty Name="Bridge_Event" Relationship="LundbeckModel.Dim_EventBridge_Event" FromRole="Dim_Event" ToRole="Bridge_Event" />
+        </EntityType>
+        <EntityType Name="Bridge_Event_L">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Dim_Unit_TypeId" Type="Int32" Nullable="false" />
+          <Property Name="Dim_EventId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Dim_Unit_Type" Relationship="LundbeckModel.Dim_Unit_TypeBridge_Event" FromRole="Bridge_Event" ToRole="Dim_Unit_Type" />
+          <NavigationProperty Name="Dim_Event" Relationship="LundbeckModel.Dim_EventBridge_Event" FromRole="Bridge_Event" ToRole="Dim_Event" />
+          <NavigationProperty Name="Fact_Unit_Log" Relationship="LundbeckModel.Bridge_EventFact_Unit_Log" FromRole="Bridge_Event" ToRole="Fact_Unit_Log" />
+        </EntityType>
+        <EntityType Name="Fact_Unit_Log_L">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bridge_UnitId" Type="Int32" Nullable="false" />
+          <Property Name="Timestamp" Type="DateTime" Nullable="false" />
+          <Property Name="Bridge_EventId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bridge_Unit" Relationship="LundbeckModel.Bridge_UnitFact_Unit_Log" FromRole="Fact_Unit_Log" ToRole="Bridge_Unit" />
+          <NavigationProperty Name="Bridge_Event" Relationship="LundbeckModel.Bridge_EventFact_Unit_Log" FromRole="Fact_Unit_Log" ToRole="Bridge_Event" />
+        </EntityType>
+        <EntityType Name="Fact_Unit_Data_L">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bridge_UnitId" Type="Int32" Nullable="false" />
+          <Property Name="On" Type="Int32" Nullable="false" />
+          <Property Name="Off" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bridge_Unit" Relationship="LundbeckModel.Bridge_UnitFact_Unit_Data" FromRole="Fact_Unit_Data" ToRole="Bridge_Unit" />
+        </EntityType>
+        <Association Name="Dim_UnitBridge_Unit">
+          <End Type="LundbeckModel.Dim_Unit_L" Role="Dim_Unit" Multiplicity="1" />
+          <End Type="LundbeckModel.Bridge_Unit_L" Role="Bridge_Unit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dim_Unit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bridge_Unit">
+              <PropertyRef Name="Dim_UnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Dim_Unit_TypeBridge_Unit">
+          <End Type="LundbeckModel.Dim_Unit_Type_L" Role="Dim_Unit_Type" Multiplicity="1" />
+          <End Type="LundbeckModel.Bridge_Unit_L" Role="Bridge_Unit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dim_Unit_Type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bridge_Unit">
+              <PropertyRef Name="Dim_Unit_TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Dim_Unit_TypeBridge_Event">
+          <End Type="LundbeckModel.Dim_Unit_Type_L" Role="Dim_Unit_Type" Multiplicity="1" />
+          <End Type="LundbeckModel.Bridge_Event_L" Role="Bridge_Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dim_Unit_Type">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bridge_Event">
+              <PropertyRef Name="Dim_Unit_TypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Dim_LocationBridge_Unit">
+          <End Type="LundbeckModel.Dim_Location_L" Role="Dim_Location" Multiplicity="1" />
+          <End Type="LundbeckModel.Bridge_Unit_L" Role="Bridge_Unit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dim_Location">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bridge_Unit">
+              <PropertyRef Name="Dim_LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Dim_EventBridge_Event">
+          <End Type="LundbeckModel.Dim_Event_L" Role="Dim_Event" Multiplicity="1" />
+          <End Type="LundbeckModel.Bridge_Event_L" Role="Bridge_Event" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dim_Event">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bridge_Event">
+              <PropertyRef Name="Dim_EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Bridge_UnitFact_Unit_Log">
+          <End Type="LundbeckModel.Bridge_Unit_L" Role="Bridge_Unit" Multiplicity="1" />
+          <End Type="LundbeckModel.Fact_Unit_Log_L" Role="Fact_Unit_Log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bridge_Unit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Fact_Unit_Log">
+              <PropertyRef Name="Bridge_UnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Bridge_EventFact_Unit_Log">
+          <End Type="LundbeckModel.Bridge_Event_L" Role="Bridge_Event" Multiplicity="1" />
+          <End Type="LundbeckModel.Fact_Unit_Log_L" Role="Fact_Unit_Log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bridge_Event">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Fact_Unit_Log">
+              <PropertyRef Name="Bridge_EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Bridge_UnitFact_Unit_Data">
+          <End Type="LundbeckModel.Bridge_Unit_L" Role="Bridge_Unit" Multiplicity="1" />
+          <End Type="LundbeckModel.Fact_Unit_Data_L" Role="Fact_Unit_Data" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bridge_Unit">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Fact_Unit_Data">
+              <PropertyRef Name="Bridge_UnitId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LundbeckModelStoreContainer" CdmEntityContainer="LundbeckModelContainer">
+    <EntitySetMapping Name="Dim_Unit_LSet">
+      <EntityTypeMapping TypeName="IsTypeOf(LundbeckModel.Dim_Unit_L)">
+        <MappingFragment StoreEntitySet="Dim_Unit_LSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Unitname" ColumnName="Unitname" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Dim_Unit_Type_LSet">
+      <EntityTypeMapping TypeName="IsTypeOf(LundbeckModel.Dim_Unit_Type_L)">
+        <MappingFragment StoreEntitySet="Dim_Unit_Type_LSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Dim_Location_LSet">
+      <EntityTypeMapping TypeName="IsTypeOf(LundbeckModel.Dim_Location_L)">
+        <MappingFragment StoreEntitySet="Dim_Location_LSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Room" ColumnName="Room" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bridge_Unit_LSet">
+      <EntityTypeMapping TypeName="IsTypeOf(LundbeckModel.Bridge_Unit_L)">
+        <MappingFragment StoreEntitySet="Bridge_Unit_LSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Dim_UnitId" ColumnName="Dim_UnitId" />
+          <ScalarProperty Name="Dim_Unit_TypeId" ColumnName="Dim_Unit_TypeId" />
+          <ScalarProperty Name="Dim_LocationId" ColumnName="Dim_LocationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Dim_Event_LSet">
+      <EntityTypeMapping TypeName="IsTypeOf(LundbeckModel.Dim_Event_L)">
+        <MappingFragment StoreEntitySet="Dim_Event_LSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Event" ColumnName="Event" />
+          <ScalarProperty Name="EventDescription" ColumnName="EventDescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bridge_Event_LSet">
+      <EntityTypeMapping TypeName="IsTypeOf(LundbeckModel.Bridge_Event_L)">
+        <MappingFragment StoreEntitySet="Bridge_Event_LSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Dim_Unit_TypeId" ColumnName="Dim_Unit_TypeId" />
+          <ScalarProperty Name="Dim_EventId" ColumnName="Dim_EventId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Fact_Unit_Log_LSet">
+      <EntityTypeMapping TypeName="IsTypeOf(LundbeckModel.Fact_Unit_Log_L)">
+        <MappingFragment StoreEntitySet="Fact_Unit_Log_LSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Bridge_UnitId" ColumnName="Bridge_UnitId" />
+          <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+          <ScalarProperty Name="Bridge_EventId" ColumnName="Bridge_EventId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Fact_Unit_Data_LSet">
+      <EntityTypeMapping TypeName="IsTypeOf(LundbeckModel.Fact_Unit_Data_L)">
+        <MappingFragment StoreEntitySet="Fact_Unit_Data_LSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Bridge_UnitId" ColumnName="Bridge_UnitId" />
+          <ScalarProperty Name="On" ColumnName="On" />
+          <ScalarProperty Name="Off" ColumnName="Off" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
